@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="UIS_Sizecharts::Sizecharts" sortOrder="10" title="Sizecharts">
+					<resource id="UIS_Sizecharts::Sizecharts_save" sortOrder="10" title="Save Sizecharts"/>
+					<resource id="UIS_Sizecharts::Sizecharts_delete" sortOrder="20" title="Delete Sizecharts"/>
+					<resource id="UIS_Sizecharts::Sizecharts_update" sortOrder="30" title="Update Sizecharts"/>
+					<resource id="UIS_Sizecharts::Sizecharts_view" sortOrder="40" title="View Sizecharts"/>
+				</resource>
+				<resource id="UIS_Sizecharts::Gender" sortOrder="10" title="Gender">
+					<resource id="UIS_Sizecharts::Gender_save" sortOrder="10" title="Save Gender"/>
+					<resource id="UIS_Sizecharts::Gender_delete" sortOrder="20" title="Delete Gender"/>
+					<resource id="UIS_Sizecharts::Gender_update" sortOrder="30" title="Update Gender"/>
+					<resource id="UIS_Sizecharts::Gender_view" sortOrder="40" title="View Gender"/>
+				</resource>
+				<resource id="UIS_Sizecharts::Unisex" sortOrder="10" title="Unisex">
+					<resource id="UIS_Sizecharts::Unisex_save" sortOrder="10" title="Save Unisex"/>
+					<resource id="UIS_Sizecharts::Unisex_delete" sortOrder="20" title="Delete Unisex"/>
+					<resource id="UIS_Sizecharts::Unisex_update" sortOrder="30" title="Update Unisex"/>
+					<resource id="UIS_Sizecharts::Unisex_view" sortOrder="40" title="View Unisex"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

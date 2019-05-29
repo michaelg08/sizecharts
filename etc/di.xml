@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="UIS\Sizecharts\Api\SizechartsRepositoryInterface" type="UIS\Sizecharts\Model\SizechartsRepository"/>
+	<preference for="UIS\Sizecharts\Api\Data\SizechartsInterface" type="UIS\Sizecharts\Model\Sizecharts"/>
+	<preference for="UIS\Sizecharts\Api\Data\SizechartsSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="UIS\Sizecharts\Model\ResourceModel\Sizecharts\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">uis_sizecharts</argument>
+			<argument name="resourceModel" xsi:type="string">UIS\Sizecharts\Model\ResourceModel\Sizecharts\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="uis_sizecharts_grid_data_source" xsi:type="string">UIS\Sizecharts\Model\ResourceModel\Sizecharts\Grid\Collection</item>
+				<item name="uis_gender_grid_data_source" xsi:type="string">UIS\Sizecharts\Model\ResourceModel\Gender\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<virtualType name="UIS\Sizecharts\Model\ResourceModel\Gender\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">uis_gender</argument>
+			<argument name="resourceModel" xsi:type="string">UIS\Sizecharts\Model\ResourceModel\Gender\Collection</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="UIS\Sizecharts\Model\ResourceModel\Unisex\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">uis_unisex</argument>
+			<argument name="resourceModel" xsi:type="string">UIS\Sizecharts\Model\ResourceModel\Unisex\Collection</argument>
+		</arguments>
+	</virtualType>
+</config>

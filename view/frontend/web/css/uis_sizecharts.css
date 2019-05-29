@@ -1,0 +1,45 @@
+/* 
+ * 	MyNamespace Sizecharts CSS
+ *	v1.0.0
+ */
+
+#sizecharts {
+	display: none;
+}
+
+.attribute_sizechart{
+    background: #fff;
+    font-size: 14px;
+    z-index: 999;
+    position: relative;
+    width: 240px;
+}
+
+.attribute_sizechart table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+	font-size: 14px;
+	line-height: 1.5;
+    font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+}
+
+.attribute_sizechart th,td {
+	text-align: center;
+} 
+
+.attribute_sizechart th { 
+	background: #636363;
+	color: #fff;
+}
+
+.attribute_sizechart .us_size{
+	background: #39c; 
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+}
+td.uk_size,td.eu_size,td.mm_size {
+	color: #000;
+	font-weight: bold;
+}  

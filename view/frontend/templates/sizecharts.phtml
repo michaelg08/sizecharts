@@ -1,0 +1,126 @@
+<?php 
+/**
+ * MyNamespace/sizecharts template.
+ * Contains sizecharts form.
+ */
+?>
+<?php
+$product = $this->getProduct();
+$sizechartsLabel = $product->getSizechartsLabel();
+
+$sizecharts = $this->getSizeCharts($sizechartsLabel);
+
+$isUnisex = false;
+$sizeChartsData = array();
+
+if ($sizecharts) {
+    $isUnisex = $sizecharts->getIsUnisex();
+    $sizeChartsData = $this->getSizeChartsData($sizecharts);
+}
+
+$productGender = $this->getProductGender($product);
+?>
+
+<?php if ($sizeChartsData): ?>
+    <table id="sizecharts" style="display:none;">
+        <?php foreach ($sizeChartsData as $sizechart): ?>
+            <?php
+            $curUsSize = '';
+            if ($isUnisex) {
+                $curUsSize = $sizechart->getMensSize();
+            } else {
+                if ($productGender == 'womens') {
+                    $curUsSize = $sizechart->getWmnsSize();
+                }
+                if ($productGender == 'mens') {
+                    $curUsSize = $sizechart->getMensSize();
+                }
+            }
+            ?>
+            <?php if ($curUsSize != '' && $this->hasSizechart($sizechart)): ?>
+                <tr id="size_<?php echo str_replace('.', '-', $curUsSize); ?>">
+                <?php if ($curUsSize != ''): ?><td class="us_size" id="us_size_<?php echo $curUsSize ?>" ><?php echo __($curUsSize) ?></td><?php endif; ?>
+                <?php if ($sizechart->getUkSize() != ''): ?><td class="uk_size" id="uk_size_<?php echo str_replace('.', '-', $sizechart->getUkSize()); ?>" ><?php echo __($sizechart->getUkSize()) ?></td><?php endif; ?>
+                    <?php if ($sizechart->getEuSize() != ''): ?><td class="eu_size" id="eu_size_<?php echo str_replace('.', '-', $sizechart->getEuSize()); ?>" ><?php echo __($sizechart->getEuSize()) ?></td><?php endif; ?>
+                    <?php if ($sizechart->getMmSize() != ''): ?><td class="mm_size" id="mm_size_<?php echo str_replace('.', '-', $sizechart->getMmSize()); ?>"><?php echo __($sizechart->getMmSize()) ?></td><?php endif; ?>
+                </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+    </table>
+    <?php endif; ?> 
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'domReady!',
+        'underscore'
+    ], function ($) {
+
+        $(document).on('click', '.swatch-option', function (event) {
+            event.preventDefault();
+
+            $('.attribute_sizechart').remove();
+
+            if ($(this).attr('class').includes('selected') == false) {
+                return;
+            }
+
+            var size;
+
+            if (parseInt($(this).attr('option-tooltip-value')) > 0) {
+                size = $(this).attr('option-tooltip-value');
+            } else {
+                size = $(this).text();
+            }
+
+            var sichartsTable = getSichartsTable(size);
+
+            $('.swatch-attribute-options').append(sichartsTable);
+
+        });
+
+        $('body').on('click', function (event) {
+            if ($('.attribute_sizechart').length) {
+                $('.attribute_sizechart').remove();
+            }
+        });
+
+        function getSichartsTable(size) {
+            if (size !== '') {
+                var sizeLabel = size.replace(".", "-");
+                var sizeChartRow = $('#size_' + sizeLabel);
+
+                if ($(sizeChartRow).length) {
+
+                    var sizeHeaderRow = '<tr id="size_header">';
+                    $(sizeChartRow).children().each(function () {
+
+                        switch ($(this).attr('class')) {
+                            case 'us_size':
+                                sizeHeaderRow = sizeHeaderRow + '<th class="us_size">US</th>';
+                                break;
+                            case 'uk_size':
+                                sizeHeaderRow = sizeHeaderRow + '<th class="uk_size">UK</th>';
+                                break;
+                            case 'eu_size':
+                                sizeHeaderRow = sizeHeaderRow + '<th class="eu_size">EU</th>';
+                                break;
+                            case 'mm_size':
+                                sizeHeaderRow = sizeHeaderRow + '<th class="mm_size">MM</th>';
+                                break;
+                        }
+
+                    });
+                    sizeHeaderRow = sizeHeaderRow + '</tr>';
+
+                    var sizeChartTable = '<div class="attribute_sizechart"><table><tbody>' + sizeHeaderRow + $(sizeChartRow).html() + '</tbody></table></div>';
+
+                    return sizeChartTable;
+                }
+
+            }
+        }
+
+    });
+</script>
+
